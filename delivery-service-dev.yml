@@ -1,1 +1,31 @@
+spring:
+  config:
+    import: "optional:configserver:http://localhost:8888"
+    activate:
+      on:
+        profile: dev
 
+  datasource:
+    url: "jdbc:h2:mem:delivery_service"
+    username: "sa"
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  kafka:
+    bootstrap-servers: "http://localhost:9092"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://localhost:8761/eureka"
+    register-with-eureka: true
+    fetch-registry: true
